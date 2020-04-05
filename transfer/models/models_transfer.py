@@ -1,9 +1,15 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 class School(models.Model):
     school_name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.school_name
+
+    def get_absolute_url(self):
+        return reverse('school_name', args=[str(self.id)])
 
 
 class Course(models.Model):
@@ -18,3 +24,6 @@ class Course(models.Model):
 
 class MajorRequirment(models.Model):
     description = models.CharField(max_length = 100, unique=True)
+
+    def __str__(self):
+        return self.description
