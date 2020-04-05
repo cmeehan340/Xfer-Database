@@ -1,8 +1,27 @@
-com{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-{% for school in school_list %}
 <div>
-<h2><a href="{% url 'school_name' school.pk %}">{{ School.school_name }}</a></h2>
+  <h1> University of New Hampshire at Manchester</h1>
 </div>
-{% endfor %}
+<div>
+  <h2>Transfer Credit Database</h2>
+</div>
+<div>
+  Transfer Credit Policies:
+  <ul>
+    <li>Only those transfer credit courses that carry a grade of "C" or better can be accepted.</li>
+    <li>No failed business requirements taken at UNHM may be repeated from another school.</li>
+    <li>Students have up to one semester after matriculation to reconcile transfer credit.</li>
+    <li>Students who are candidates for a bachelor’s degree must attain the last one-quarter of total credits for the degree (generally 32 credits) at the University of New Hampshire as a matriculated student (this is the “Senior Residency Requirement”). Students seeking to transfer credits that fall into this range must petition through their Dean’s office, unless they are taking these credits through the UNH Study Abroad or NSE Programs.</li>
+  </ul>
+</div>
+<div class="selectschool">
+  <h3>Select a school in the dropdown below to display evaluated courses.</h3>
+  <form method="post" novalidate>
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <button type="submit">Go</button>
+    </form>
 {% endblock content %}
