@@ -1,0 +1,8 @@
+com{% extends 'base.html' %}
+{% block content %}
+{% for school in school_list %}
+<div>
+<h2><a href="{% url 'school_name' school.pk %}">{{ School.school_name }}</a></h2>
+</div>
+{% endfor %}
+{% endblock content %}

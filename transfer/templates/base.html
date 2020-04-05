@@ -1,0 +1,20 @@
+{% load static %}
+{% load static %}
+<html>
+<head>
+<title>UNHM Transfer Credit Catalog</title>
+<link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+<body>
+<div>
+<header>
+<div class="nav-left">
+<a href="{% url 'home' %}">Home</a>
+</div>
+
+</header>
+{% block content %}
+{% endblock content %}
+</div>
+</body>
+</html>
