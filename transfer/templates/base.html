@@ -1,20 +1,16 @@
 {% load static %}
-{% load static %}
-<html>
-<head>
-<title>UNHM Transfer Credit Catalog</title>
-<!-- <link href="{% static 'css/base.css' %}" rel="stylesheet"> -->
-</head>
-<body>
-<div>
-<header>
-<div class="nav-left">
-<a href="{% url 'home' %}">Home</a>
-</div>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>UNHM Transer Credit Catalog</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  </head>
+  <body>
+    {% include "partials/_navbar.html" %}
 
-</header>
-{% block content %}
-{% endblock content %}
-</div>
-</body>
+    {% block content %}
+
+    {% endblock content %}
+  </body>
 </html>
