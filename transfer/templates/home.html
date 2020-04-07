@@ -10,12 +10,8 @@
   </ul>
 </div>
 <div class="selectschool">
-  <h3>Select a school in the dropdown below to display evaluated courses.</h3>
-  <form method="post" novalidate>
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
-      <button type="submit">Go</button>
-  </form>
+  <a href="{% url 'school_detail' %}">Click Here to Pick School to Transfer Credits From</a>
+</div>
+
+
 {% endblock content %}
