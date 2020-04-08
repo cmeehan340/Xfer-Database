@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models.models_transfer import School, Course, MajorRequirment
-from .models.model_approver import Approver
-from .models.model_major import Major
+from .models.models_transfer import (
+        School,
+        Course,
+        MajorRequirment,
+        Approver,
+        Major
+    )
 
 # Register your models here.
 admin.site.register(School)

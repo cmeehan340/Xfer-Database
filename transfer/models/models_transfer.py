@@ -13,6 +13,27 @@ class School(models.Model):
         return reverse('school_name', args=[str(self.id)])
 
 
+class MajorRequirment(models.Model):
+    description = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.description
+
+
+class Major(models.Model):
+    major_name = models.CharField(max_length=30, blank=False, unique=True)
+
+    def __str__(self):
+        return self.major_name
+
+
+class Approver(models.Model):
+    approver_name = models.CharField(max_length=30, blank=False, unique=True)
+
+    def __str__(self):
+        return self.approver_name
+
+
 class Course(models.Model):
     school_id = models.ForeignKey(School, on_delete=models.CASCADE)
     subject_no = models.CharField(max_length=10, unique=True)
@@ -21,11 +42,7 @@ class Course(models.Model):
     expiration_date = models.DateField()
     approved_status = models.CharField(max_length=1)
     comment = models.CharField(max_length=150)
-    # approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)
-
-
-class MajorRequirment(models.Model):
-    description = models.CharField(max_length=100, unique=True)
+    approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.description
+        return self.title
