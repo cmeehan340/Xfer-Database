@@ -3,7 +3,9 @@ from django.http import HttpResponse
 
 from django.views.generic import ListView, DetailView
 
-from ..models.models_transfer import School, Course, Major
+from ..models.model_school import School
+from ..models.model_course import Course
+from ..models.model_major import Major
 # Create your views here.
 
 

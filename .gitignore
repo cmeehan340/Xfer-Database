@@ -10,6 +10,8 @@ __pycache__
 db.sqlite3
 media
 transfer/data
+models/import_majors.py
+models/import_schools.py
 
 # Backup files #
 *.bak
