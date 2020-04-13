@@ -4,6 +4,7 @@ Chris Meehan
 4/12/2020
 '''
 from django.db import models
+from django.urls import reverse
 
 
 class Major(models.Model):
@@ -14,3 +15,6 @@ class Major(models.Model):
 
     def __str__(self):
         return self.major_name
+
+    def get_absolute_url(self):
+        return reverse('major_detail', args=[str(self.id)])

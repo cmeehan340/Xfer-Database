@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Please Select a Major from the Dropdown</h2>
+<div>
+<a href="{% url 'course_detail' %}">Temporary Link to Courses Page</a>
+</div>
+<h3>Majors:</h3>
+<div class="dropdown">
+  <div id="myDropdown" class="dropdown-content">
+    {% for major in object_list %}
+    <a href="% url 'major_detail' major.pk %}">{{ major.major_name }}</a>
+    {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

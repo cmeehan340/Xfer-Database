@@ -2,15 +2,13 @@
 {% load static %}
 {% block content %}
 <h2>Please Select a School from the Dropdown</h2>
+<a href="{% url 'majors' %}">Temporary Link to Majors Page</a>
 <h3>Schools:</h3>
-<ul>
-<div class=selectschool>
-{% for school in object_list %}
-<li>{{ school.school_name }}</li>
-</div>
-{% endfor %}
-</ul>
-<div>
-<a href="{% url 'major_detail' %}">Temporary Link to Majors Page</a>
-</div>
+<div class="dropdown">
+  <div id="myDropdown" class="dropdown-content">
+    {% for school in object_list %}
+    <a href="">{{ school.school_name }}</a>
+    {% endfor %}
+    </div>
+    </div>
 {% endblock %}
