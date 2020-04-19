@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<h1>Courses</h1>
+<h1>Course</h1>
 <div>
-  <ul>
-    {% for course in object_list %}
-    <li>{{ course.subject_no}} {{ course.title }}  </li>
-    {% endfor %}
+{ course.subject_no}} {{ course.title }}
+
 </div>
 {% endblock %}

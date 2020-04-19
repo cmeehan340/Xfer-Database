@@ -29,11 +29,11 @@ class SchoolCreateView(CreateView):
 
 class SchoolUpdateView(UpdateView):
     model = School
-    template_name = 'school_delete.html'
+    template_name = 'school_edit.html'
     success_url = reverse_lazy('home')
 
 
 class SchoolDeleteView(DeleteView):
     model = School
-    template_name = 'post_delete.html'
+    template_name = 'school_delete.html'
     success_url = reverse_lazy('home')
