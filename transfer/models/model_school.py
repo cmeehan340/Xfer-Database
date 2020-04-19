@@ -12,7 +12,7 @@ class School(models.Model):
     This is a school model built from the data model.
     '''
     school_name = models.CharField(max_length=100, unique=True)
-    major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
+    # major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.school_name

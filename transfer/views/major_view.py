@@ -4,7 +4,7 @@ Chris Meehan
 4/13/2020
 '''
 from ..models.model_major import Major
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 
 class MajorListView(ListView):
@@ -21,3 +21,9 @@ class MajorDetailView(DetailView):
     '''
     model = Major
     template_name = 'major_detail.html'
+
+class MajorCreateView(CreateView):
+    # creates object in model Major
+    model = Major
+    template_name = 'major_new.html'
+    fields = ['major_name']

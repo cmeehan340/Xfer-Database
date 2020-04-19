@@ -1,14 +1,8 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'base.html' %}
 {% block content %}
-<h2>Please Select a School from the Dropdown</h2>
-<a href="{% url 'majors' %}">Temporary Link to Majors Page</a>
-<h3>Schools:</h3>
-<div class="dropdown">
-  <div id="myDropdown" class="dropdown-content">
-    {% for school in object_list %}
-    <a href="">{{ school.school_name }}</a>
-    {% endfor %}
-    </div>
-    </div>
-{% endblock %}
+<div>
+<h2>{{ school.school_name }}</h2>
+</div>
+<a href="{% url 'school_edit' school.pk %}">+ Edit Blog Post</a>
+<p><a href="{% url 'school_delete' school.pk %}">+ Delete Blog Post</a></p>
+{% endblock content %}
