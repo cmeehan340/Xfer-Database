@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h3>Approvers:</h3>
+<ul>
+<div>
+{% for approver in object_list %}
+<li>{{ approver.approver_name }}</li>
+</div>
+{% endfor %}
+</ul>
+
+{% endblock %}

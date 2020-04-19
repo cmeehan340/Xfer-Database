@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Please Select an Approver from the Dropdown</h2>
+<div class="dropdown">
+  <div id="myDropdown" class="dropdown-content">
+    {% for approver in object_list %}
+    <a href="">{{ approver.approver_name }}</a>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
