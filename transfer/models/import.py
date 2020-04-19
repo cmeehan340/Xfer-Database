@@ -4,11 +4,11 @@ from sqlite3 import Error
 
 path = '../data/'
 majors = ['Biological Sciences', 'Business', 'Communication Arts',
-            'Computer Information Systems (1)', 'Computer Science (1)',
-            'EET w_ CT Option (1)', 'Electrical Engineering Technology (1)',
-            'English (1)', 'English Teaching (1)', 'History (1)',
-            'Mechanical Engineering Technology (1)', 'Politics and Society (1)',
-            'Psychology (1)', 'Sign Language Interpretation (1)'
+            'Computer Information Systems', 'Computer Science',
+            'EET with CT Option', 'Electrical Engineering Technology',
+            'English', 'English Teaching', 'History',
+            'Mechanical Engineering Technology', 'Politics and Society',
+            'Psychology', 'Sign Language Interpretation'
         ]
 ext = '.xlsx'
 db_file = '../../db.sqlite3'
@@ -40,17 +40,7 @@ def create_school_list(major):
     school_list = addSheetToList(sheet, school_list)
     return school_list
 
-def fixMajorList(majors):
-    fixedMajors = []
-    stripMe = '(1)'
 
-    for item in majors:
-        fixedItem = item.strip(stripMe)
-        fixedItem = fixedItem.strip()
-        if (fixedItem == ("EET w_ CT Option")):
-            fixedItem = "EET with CT Option"
-        fixedMajors.append(fixedItem)
-    return fixedMajors
 
 def create_major(conn, major):
     sql = ''' INSERT INTO transfer_major(major_name) VALUES(?) '''
@@ -58,23 +48,17 @@ def create_major(conn, major):
     cur.execute(sql, [major])
     return cur.lastrowid
 
-def create_school(conn, school, majorid):
-    sql = ''' INSERT INTO transfer_school(school_name, major_id_id) VALUES(?,?) '''
+def create_school(conn, school):
+    sql = ''' INSERT INTO transfer_school(school_name) VALUES(?) '''
     cur = conn.cursor()
-    cur.execute(sql, [school, majorid])
+    cur.execute(sql, [school])
     return cur.lastrowid
 
 if __name__ == '__main__':
     conn = create_connection(db_file)
-    major_list = fixMajorList(majors)
-
     with conn:
-        for major in major_list:
-            task = create_major(conn, major)
-        idx = 0
         for major in majors:
-            school_list = create_school_list(major)
-            with conn:
-                for school in school_list:
-                    task = create_school(conn, school, major_list[idx])
-            idx+=1
+            task = create_major(conn, major)
+        school_list = create_school_list(majors)
+        for school in school_list:
+            school_task = create_school(conn, school)
