@@ -24,7 +24,7 @@ class CourseTest(TestCase):
         self.course = Course.objects.create(
             subject_no='COMP 705',
             title="Full Stack Development",
-            sem_year_taken='Spring 2020',
+            sem_year_taken='Sp2020',
             expiration_date='2022-04-08',
             approved_status='Y',
             comment='This is a test comment',
@@ -37,3 +37,14 @@ class CourseTest(TestCase):
         '''
         name = Course(title='Object Oriented Software')
         self.assertEqual(str(name), name.title)
+
+    def test_course_content(self):
+        '''
+        Runs a test to verify that the course is being created correctly
+        '''
+        self.assertEqual(f'{self.course.subject_no}', 'COMP705')
+        self.assertEqual(f'{self.course.title}', 'Full Stack Development')
+        self.assertEqual(f'{self.course.sem_year_taken}', 'Sp2020')
+        self.assertEqual(f'{self.course.expiration_date}', '2022-04-08')
+        self.assertEqual(f'{self.course.approved_status}', 'Y')
+        self.assertEqual(f'{self.course.comment}', 'This is a test comment')

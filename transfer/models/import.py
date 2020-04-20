@@ -2,18 +2,11 @@ import openpyxl
 import sqlite3
 from sqlite3 import Error
 
-path = '../data/'
-majors = ['Biological Sciences', 'Business', 'Communication Arts',
-            'Computer Information Systems', 'Computer Science',
-            'EET with CT Option', 'Electrical Engineering Technology',
-            'English', 'English Teaching', 'History',
-            'Mechanical Engineering Technology', 'Politics and Society',
-            'Psychology', 'Sign Language Interpretation'
-        ]
-ext = '.xlsx'
+data_file = '../data/transfer_by_major.xlsx'
 db_file = '../../db.sqlite3'
 
-
+wb = openpyxl.load_workbook(data_file)
+majors = wb.sheetnames
 
 def addSheetToList(sheet, school_list):
     for row_idx in range(sheet.min_row+1, sheet.max_row + 1):
@@ -32,11 +25,7 @@ def create_connection(db_file):
         print(e)
     return conn
 
-def create_school_list(major):
-    school_list = []
-    file = path + major + ext
-    wb = openpyxl.load_workbook(file)
-    sheet = wb.active
+def create_school_list(school_list, sheet):
     school_list = addSheetToList(sheet, school_list)
     return school_list
 
@@ -48,10 +37,10 @@ def create_major(conn, major):
     cur.execute(sql, [major])
     return cur.lastrowid
 
-def create_school(conn, school):
-    sql = ''' INSERT INTO transfer_school(school_name) VALUES(?) '''
+def create_school(conn, school, major_id):
+    sql = ''' INSERT INTO transfer_school(school_name, major_id_id) VALUES(?,?) '''
     cur = conn.cursor()
-    cur.execute(sql, [school])
+    cur.execute(sql, [school, major_id])
     return cur.lastrowid
 
 if __name__ == '__main__':
@@ -59,6 +48,10 @@ if __name__ == '__main__':
     with conn:
         for major in majors:
             task = create_major(conn, major)
-        school_list = create_school_list(majors)
+    for i in range(1,15):
+        school_list = []
+        sheet = wb[majors[i]]
+        school_list = create_school_list(school_list, sheet)
         for school in school_list:
-            school_task = create_school(conn, school)
+            with conn:
+                task = create_school(conn, school, i)
