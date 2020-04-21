@@ -3,5 +3,6 @@
 <div class>
 <h2>{{ major.major_name }}</h2>
 </div>
-
+<a href="{% url 'major_edit' major.pk %}">+ Edit Major</a>
+<p><a href="{% url 'major_delete' major.pk %}">+ Delete Major</a></p>
 {% endblock content %}

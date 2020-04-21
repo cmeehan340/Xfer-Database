@@ -1,14 +1,8 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'base.html' %}
 {% block content %}
-
-<h3>Approvers:</h3>
-<ul>
-<div>
-{% for approver in object_list %}
-<li>{{ approver.approver_name }}</li>
+<div class>
+<h2>{{ approver.approver_name }}</h2>
 </div>
-{% endfor %}
-</ul>
-
-{% endblock %}
+<a href="{% url 'approver_edit' approver.pk %}">+ Edit Approver</a>
+<p><a href="{% url 'approver_delete' approver.pk %}">+ Delete Approver</a></p>
+{% endblock content %}

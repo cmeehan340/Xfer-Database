@@ -26,7 +26,7 @@ class ApproverCreateView(CreateView):
     template_name = 'approver_new.html'
     fields = ['approver_name']
     success_url = reverse_lazy('home')
-
+    fields = '__all__'
 
 class ApproverDeleteView(DeleteView):
     model = Approver
@@ -37,3 +37,4 @@ class ApproverUpdateView(UpdateView):
     model = Approver
     template_name = 'approver_edit.html'
     success_url = reverse_lazy('home')
+    fields = '__all__'
