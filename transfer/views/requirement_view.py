@@ -25,16 +25,16 @@ class RequirementCreateView(CreateView):
     model = MajorRequirement
     template_name = 'requirement/major_req_new.html'
     fields = ['approver_name']
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('requirement_home')
     fields = '__all__'
 
 class RequirementDeleteView(DeleteView):
     model = MajorRequirement
     template_name = 'requirement/major_req_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('requirement_home')
 
 class RequirementUpdateView(UpdateView):
     model = MajorRequirement
     template_name = 'requirement/major_req_edit.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('requirement_home')
     fields = '__all__'
