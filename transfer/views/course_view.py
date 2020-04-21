@@ -20,7 +20,7 @@ class CourseCreateView(CreateView):
     model = Course
     template_name = 'course/course_new.html'
     fields = '__all__'
-
+    success_url = reverse_lazy('course_home')
 
 class CourseDetailView(DetailView):
     model = Course
@@ -30,10 +30,10 @@ class CourseDetailView(DetailView):
 class CourseUpdateView(UpdateView):
     model = Course
     template_name = 'course/course_edit.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('course_home')
     fields = '__all__'
 
 class CourseDeleteView(DeleteView):
     model = Course
     template_name = 'course/course_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('course_home')
