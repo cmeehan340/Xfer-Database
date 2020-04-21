@@ -19,15 +19,7 @@ class CourseCreateView(CreateView):
     # creates object in model Major
     model = Course
     template_name = 'course_new.html'
-    fields = ['school_id',
-        'subject_no',
-        'title',
-        'sem_year_taken',
-        'expiration_date',
-        'approved_status',
-        'comment',
-        'approver_id'
-        ]
+    fields = '__all__'
 
 
 class CourseDetailView(DetailView):
@@ -39,7 +31,7 @@ class CourseUpdateView(UpdateView):
     model = Course
     template_name = 'course_edit.html'
     success_url = reverse_lazy('home')
-
+    fields = '__all__'
 
 class CourseDeleteView(DeleteView):
     model = Course

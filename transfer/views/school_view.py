@@ -24,14 +24,13 @@ class SchoolCreateView(CreateView):
     #create view of all the object of model School
     model = School
     template_name = 'school_new.html'
-    fields = ['school_name']
-
+    fields = '__all__'
 
 class SchoolUpdateView(UpdateView):
     model = School
     template_name = 'school_edit.html'
     success_url = reverse_lazy('home')
-
+    fields = '__all__'
 
 class SchoolDeleteView(DeleteView):
     model = School

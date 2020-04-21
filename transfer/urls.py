@@ -5,7 +5,11 @@ from .views.course_view import (CourseListView,
                                 CourseUpdateView,
                                 CourseDetailView)
 from .views.home_view import HomeListView
-from .views.major_view import MajorListView, MajorDetailView, MajorCreateView
+from .views.major_view import (MajorListView,
+                             MajorDetailView,
+                             MajorCreateView,
+                             MajorDeleteView,
+                             MajorUpdateView)
 from .views.school_view import (SchoolListView,
                             SchoolCreateView,
                             SchoolDetailView,
@@ -26,10 +30,12 @@ urlpatterns = [
     path('school/new', SchoolCreateView.as_view(), name='school_new'),
     path('school/<int:pk>/edit', SchoolUpdateView.as_view(), name='school_edit'),
     path('school/<int:pk>/delete', SchoolDeleteView.as_view(), name='school_delete'),
-    path('major', MajorListView.as_view(), name='majors'),
+    path('major', MajorListView.as_view(), name='major_home'),
     path('major/<int:pk>', MajorDetailView.as_view(), name='major_detail'),
     path('major/new', MajorCreateView.as_view(), name='major_new'),
-    path('course', CourseListView.as_view(), name='course_detail'),
+    path('major/<int:pk>/edit', MajorUpdateView.as_view(), name='major_edit'),
+    path('major/<int:pk>/delete', MajorDeleteView.as_view(), name='major_delete'),
+    path('course', CourseListView.as_view(), name='course_home'),
     path('course/new', CourseCreateView.as_view(), name='course_new'),
     path('course/<int:pk>', CourseDetailView.as_view(), name='course_detail'),
     path('course/<int:pk>/edit', CourseUpdateView.as_view(), name='course_edit'),
