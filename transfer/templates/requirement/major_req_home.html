@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Major Requirements</h2>
+<div class="dropdown">
+  <div id="myDropdown" class="dropdown-content">
+    {% for requirement in object_list %}
+    <a href="">{{ requirement.description }}</a>
+    {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

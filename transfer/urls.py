@@ -1,10 +1,10 @@
 from django.urls import path
+from .views.home_view import HomeListView
 from .views.course_view import (CourseListView,
                                 CourseCreateView,
                                 CourseDeleteView,
                                 CourseUpdateView,
                                 CourseDetailView)
-from .views.home_view import HomeListView
 from .views.major_view import (MajorListView,
                              MajorDetailView,
                              MajorCreateView,
@@ -20,9 +20,11 @@ from .views.approver_view import (ApproverListView,
                             ApproverDetailView,
                             ApproverDeleteView,
                             ApproverUpdateView)
-from .views.approver_view import ApproverListView, ApproverCreateView
-
-
+from .views.requirement_view import  (RequirementListView,
+                            RequirementCreateView,
+                            RequirementDetailView,
+                            RequirementDeleteView,
+                            RequirementUpdateView)
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
     path('school', SchoolListView.as_view(), name='school_home'),
@@ -45,4 +47,9 @@ urlpatterns = [
     path('approver/<int:pk>/edit', ApproverUpdateView.as_view(), name='approver_edit'),
     path('approver/new', ApproverCreateView.as_view(), name='approver_new'),
     path('approver/<int:pk>/delete', ApproverDeleteView.as_view(), name='approver_delete'),
+    path('requirement', RequirementListView.as_view(), name='requirement_home'),
+    path('requirement/<int:pk>', RequirementDetailView.as_view(), name='requirement_detail'),
+    path('requirement/new', RequirementCreateView.as_view(), name='requirement_new'),
+    path('requirement/<int:pk>/edit', RequirementUpdateView.as_view(), name='requirement_edit'),
+    path('requirement/<int:pk>/delete', RequirementDeleteView.as_view(), name='requirement_delete'),
 ]

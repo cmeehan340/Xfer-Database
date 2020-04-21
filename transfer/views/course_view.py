@@ -13,27 +13,27 @@ class CourseListView(ListView):
     Generates the view for the courses page
     '''
     model = Course
-    template_name = 'course_home.html'
+    template_name = 'course/course_home.html'
 
 class CourseCreateView(CreateView):
     # creates object in model Major
     model = Course
-    template_name = 'course_new.html'
+    template_name = 'course/course_new.html'
     fields = '__all__'
 
 
 class CourseDetailView(DetailView):
     model = Course
-    template_name = 'course_detail.html'
+    template_name = 'course/course_detail.html'
 
 
 class CourseUpdateView(UpdateView):
     model = Course
-    template_name = 'course_edit.html'
+    template_name = 'course/course_edit.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
 
 class CourseDeleteView(DeleteView):
     model = Course
-    template_name = 'course_delete.html'
+    template_name = 'course/course_delete.html'
     success_url = reverse_lazy('home')
