@@ -18,7 +18,7 @@ class MajorListView(ListView):
     This generates the view for majors.
     '''
     model = Major
-    template_name = 'major_home.html'
+    template_name = 'major/major_home.html'
 
 
 class MajorDetailView(DetailView):

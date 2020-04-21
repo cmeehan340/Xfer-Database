@@ -13,7 +13,7 @@ class SchoolListView(ListView):
     This generates the view for schools.
     '''
     model = School
-    template_name = 'school_home.html'
+    template_name = 'school/school_home.html'
 
 class SchoolDetailView(DetailView):
     model = School

@@ -1,13 +1,13 @@
 '''
-model_majorreq.py
+model_requirment.py
 Chris Meehan
-4/12/2020
+4/21/2020
 '''
 from django.db import models
 # Create your models here.
 
 
-class MajorRequirment(models.Model):
+class MajorRequirement(models.Model):
     '''
     This model is build for the Major Requirment based on the given data.
     '''
