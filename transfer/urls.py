@@ -14,7 +14,8 @@ from .views.school_view import (SchoolListView,
                             SchoolCreateView,
                             SchoolDetailView,
                             SchoolDeleteView,
-                            SchoolUpdateView)
+                            SchoolUpdateView,
+                            SchoolByStateView)
 from .views.approver_view import (ApproverListView,
                             ApproverCreateView,
                             ApproverDetailView,
@@ -27,7 +28,8 @@ from .views.requirement_view import  (RequirementListView,
                             RequirementUpdateView)
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
-    path('schools', SchoolListView.as_view(), name='school_home'),
+    path('schools', SchoolByStateView.as_view(), name='school_state'),
+    path('schools-list', SchoolListView.as_view(), name = 'school_home'),
     path('schools/<int:pk>', SchoolDetailView.as_view(), name='school_detail'),
     path('schools-new', SchoolCreateView.as_view(), name='school_new'),
     path('schools-update/<int:pk>', SchoolUpdateView.as_view(), name='school_edit'),
