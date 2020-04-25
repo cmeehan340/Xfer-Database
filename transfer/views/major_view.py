@@ -5,11 +5,10 @@ Chris Meehan
 '''
 from ..models.model_major import Major
 from django.views.generic import(ListView,
-                                    DetailView,
-                                    CreateView,
-                                    DeleteView,
-                                    UpdateView
-                                )
+                                CreateView,
+                                DeleteView,
+                                UpdateView,
+                                DetailView)
 from django.urls import reverse_lazy
 
 
@@ -29,18 +28,26 @@ class MajorDetailView(DetailView):
     template_name = 'major/major_detail.html'
 
 class MajorCreateView(CreateView):
-    # creates object in model Major
+    '''
+    This will be the view to create a Major
+    '''
     model = Major
     template_name = 'major/major_new.html'
     fields = ['major_name']
     success_url = reverse_lazy('major_home')
 
 class MajorDeleteView(DeleteView):
+    '''
+    This will be the view to delete a major
+    '''
     model = Major
     template_name = 'major/major_delete.html'
     success_url = reverse_lazy('major_home')
 
 class MajorUpdateView(UpdateView):
+    '''
+    This will be the view to update a major
+    '''
     model = Major
     template_name = 'major/major_edit.html'
     success_url = reverse_lazy('major_home')

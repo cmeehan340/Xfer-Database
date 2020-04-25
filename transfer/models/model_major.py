@@ -17,4 +17,7 @@ class Major(models.Model):
         return self.major_name
 
     def get_absolute_url(self):
+        '''
+        Returns the redirect for major detail page
+        '''
         return reverse('major_detail', args=[str(self.id)])

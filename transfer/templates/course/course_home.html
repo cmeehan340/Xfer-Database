@@ -1,11 +1,31 @@
-{% extends "base.html" %}
+-{% extends "base.html" %}
 {% load static %}
 {% block content %}
-<h1>Courses</h1>
-<div>
-  <ul>
+
+<h1>Course</h1>
+
+<table style="width:90%">
+<thead>
+    <tr>
+    <th>Subject Number</th>
+    <th>Title</th>
+    <th>Approved</th>
+    <th>Comments</th>
+    <th>Taken</th>
+    <th>Expiration</th>
+    </tr>
+</thead>
+<tbody>
     {% for course in object_list %}
-    <li>{{ course.subject_no}} {{ course.title }}  </li>
+    <tr>
+    <td>{{ course.subject_no }}</td>
+    <td>{{ course.title }}</td>
+    <td>{{ course.approved_status }}</td>
+    <td>{{ course.comment }}</td>
+    <td>{{ course.sem_year_taken }}</td>
+    <td>{{ course.expiration_date }}</td>
+    </tr>
     {% endfor %}
-</div>
+</tbody>
+</table>
 {% endblock %}

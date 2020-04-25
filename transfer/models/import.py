@@ -1,3 +1,8 @@
+'''
+import.py
+Chris Meehan
+4/12/2020
+'''
 import openpyxl
 import sqlite3
 from sqlite3 import Error
@@ -48,7 +53,7 @@ if __name__ == '__main__':
     with conn:
         for major in majors:
             task = create_major(conn, major)
-    for i in range(1,15):
+    for i in range(1, 15):
         school_list = []
         sheet = wb[majors[i]]
         school_list = create_school_list(school_list, sheet)
