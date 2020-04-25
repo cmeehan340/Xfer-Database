@@ -5,7 +5,7 @@ Chris Meehan
 '''
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
-from ..models.model_majorreq import MajorRequirment
+from ..models.model_requirement import MajorRequirment
 
 
 class MajorRequirmentTest(TestCase):

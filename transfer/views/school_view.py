@@ -3,7 +3,11 @@ school_view.py
 Chris Meehan
 4/13/2020
 '''
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import (ListView,
+                                CreateView,
+                                DeleteView,
+                                UpdateView,
+                                DetailView)
 from django.urls import reverse_lazy
 from ..models.model_school import School
 
@@ -21,7 +25,7 @@ class SchoolDetailView(DetailView):
 
 
 class SchoolCreateView(CreateView):
-    #create view of all the object of model School
+
     model = School
     template_name = 'school/school_new.html'
     fields = '__all__'

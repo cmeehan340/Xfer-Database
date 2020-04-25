@@ -4,10 +4,10 @@ Chris Meehan
 4/19/2020
 '''
 from django.views.generic import(ListView,
-                                    CreateView,
-                                    DeleteView,
-                                    UpdateView,
-                                    DetailView)
+                                CreateView,
+                                DeleteView,
+                                UpdateView,
+                                DetailView)
 from ..models.model_approver import Approver
 from django.urls import reverse_lazy
 

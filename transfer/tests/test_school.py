@@ -14,7 +14,7 @@ class SchoolTests(TestCase):
     '''
     This class is designed to test the schools model
     '''
-    def setUp(self):
+    def set_up(self):
         '''
         Sets up the test
         '''
