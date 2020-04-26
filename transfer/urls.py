@@ -26,6 +26,8 @@ from .views.requirement_view import  (RequirementListView,
                             RequirementDetailView,
                             RequirementDeleteView,
                             RequirementUpdateView)
+
+from .views.import_major import import_file
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
     path('schools', SchoolByStateView.as_view(), name='school_state'),
@@ -58,4 +60,6 @@ urlpatterns = [
     path('requirements-new', RequirementCreateView.as_view(), name='requirement_new'),
     path('requirements-edit/<int:pk>', RequirementUpdateView.as_view(), name='requirement_edit'),
     path('requirements-delete/<int:pk>', RequirementDeleteView.as_view(), name='requirement_delete'),
+
+    path('major/import', import_file, name = 'import_major'),
 ]
