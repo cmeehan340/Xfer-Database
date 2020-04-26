@@ -8,7 +8,9 @@ Chris Meehan
 4/26/2020
 """
 from openpyxl import load_workbook
-from models.model_major import Major
+from django.db import models
+# from ..models.model_major import Major
+from ..models.model_school import School
 
 
 def get_unique_vals_from_col(major_ws, col_idx):
@@ -294,8 +296,8 @@ def test_get_all_data(transfer_wb):
     )
     print('\nAll Majors\n==============')
     print(all_majors)
-    for  major in all_majors:
-        new_major = Major(1, major)
+    for major, idx in enumerate(all_majors):
+        new_major = Major(idx, major)
         new_major.save()
 
 
@@ -314,7 +316,7 @@ def test_get_all_data(transfer_wb):
 
 
 if __name__ == '__main__':
-    WB = load_workbook(filename='data/transfer_by_major.xlsx', read_only=True)
+    WB = load_workbook(filename='../data/transfer_by_major.xlsx', read_only=True)
 
     test_get_data_by_major(WB, 'Computer Science')
     test_get_all_data(WB)

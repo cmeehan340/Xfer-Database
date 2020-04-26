@@ -1,0 +1,252 @@
+from django.shortcuts import render
+from openpyxl import load_workbook
+from openpyxl import Workbook
+from transfer.models.model_major import Major
+from transfer.models.model_school import School
+#from transfer.views.major import import_major
+
+
+def import_file(request):
+    if request.method == 'POST':
+        file = request.FILES['document']
+        wb = import_data(request, file)
+        import_school(request, wb[0], wb[1])
+    return render(request, 'major/major_import.html')
+
+def import_data(request, file_name):
+    wb_object = load_workbook(filename=file_name, data_only=True)
+    majors = import_major(request, wb_object)
+    return [wb_object, majors]
+
+def import_major(request, wb_object):
+    major_names = wb_object.sheetnames
+    for idx,major in enumerate(major_names):
+        major_data=Major(idx, major)
+        major_data.save()
+    return major_names
+
+def get_data_by_major(
+        major_ws, major_id, schools, courses, approvers, major_reqs, evals):
+    """
+    Computes schools list with unique school names from major_ws
+    Computes courses list with unique data composed of
+        3-element sublists that have:
+            school ID, subject number, and course title
+    Computes approvers list with unique approver names from major_ws
+    Computes major-reqs list with unique data composed of
+        2-element sublists that have major ID and description
+    Computes transfer evalaution list with unique data composed of
+        2-element sublists that have:
+            course ID and major requirement ID
+
+    major_ws: worksheet
+    major_id: index of worksheet in the workbook
+    schools,  courses, approvers, major_reqs, :
+        Empty lists are passed into the call and extended with data from
+        the worksheet.
+    Returns:
+        nothing. We use pass by reference mutable objects to update the
+        parameters
+    """
+    school_col_idx = 1  # columh 'A'
+    school_lst = get_unique_vals_from_col(major_ws, school_col_idx)
+    schools.extend(school_lst)
+
+    start_col = 1
+    end_col = 3
+    course_lst = get_course_by_major(major_ws, start_col, end_col, schools)
+    courses.extend(course_lst)
+
+    approver_col_idx = 8  # column 'H'
+    approver_lst = get_unique_vals_from_col(major_ws, approver_col_idx)
+    approvers.extend(approver_lst)
+
+    major_req_col_idx = 6  # column 'F'
+    major_descriptions = get_unique_vals_from_col(major_ws, major_req_col_idx)
+    for description in major_descriptions:
+        req_data = [major_id, description]
+        major_reqs.extend(req_data)
+
+    start_col = 1
+    end_col = 12
+    transfer_eval_lst = get_eval_by_major(
+        major_ws, start_col, end_col, schools, courses, approvers, major_reqs
+    )
+    evals.extend(transfer_eval_lst)
+
+def test_get_data_by_major(transfer_wb, major_name):
+    """
+    Tests get_data_by_major()
+    """
+    schools = []
+    courses = []
+    approvers = []
+    major_reqs = []
+    evals = []
+
+    major_ws = transfer_wb[major_name]
+    major_id = transfer_wb.sheetnames.index(major_name)
+    get_data_by_major(
+        major_ws, major_id, schools, courses, approvers, major_reqs, evals
+    )
+    # Arguments schools, major_reqs, approvers, and courses get updated after
+    # the call
+    print('\nSchools\n==========')
+    print(schools)
+    print('\nApprovers\n==========')
+    print(approvers)
+    print('\nMajor Requirements\n===============')
+    print(major_reqs)
+    print('\nCourses\n==========')
+    print(courses)
+    print('\nTransfer Evaluations\n================')
+    print(evals)
+    return([schools, courses, approvers, major_reqs, evals])
+
+
+def get_unique_vals_from_col(major_ws, col_idx):
+    """
+    Computes and returns a list of unique values from the cell values of the
+    column at col_idx in the worksheet major_ws.
+    Used to get School and Approver name attribute values and
+    MajorRequirement description attribute values.
+
+    major_ws: worksheet
+    col_idx: integer, column index
+    Returns: tuple of unique values
+    """
+    # Accumulator is a set because it let us add ONLY unique values
+    value_set = set()
+    # Iterate over all the rows in the selected column, col_idx
+    # Loop variable is a tuple with one element, call value
+    for row_tuple in major_ws.iter_rows(
+            min_row=2, max_row=major_ws.max_row,
+            min_col=col_idx, max_col=col_idx,
+            values_only=True):
+        # Extract element value from the tuple and add it to value_set
+        # If element value already exists in value_set, nothing happens
+        value_set.add(row_tuple[0])
+    return list(value_set)
+
+
+def eval_with_fk(eval_row, schools, courses, approvers, major_reqs):
+    """
+    Uses data from eval_row (12-element list) and IDs from courses, approvers,
+    and major_reqs to create and return a list that has foreign key values for
+    approver ID, course ID, and major requirement ID.
+
+    eval_row: list of values from columns 1 to 12 in a row in a worksheet
+    schools, courses, approvers, major_reqs: lists of data
+    Returns: list of values representing an eval netry in the
+    TransferEvaluation entity with forign keys
+        course ID, majore requirement ID, and approver ID
+    """
+    eval_data = []
+
+    # get school name from column 1
+    # find school ID in schools list
+    school_name = eval_row[0]
+    school_id = schools.index(school_name) + 1
+
+    # get subject number and course title from columns 2 and 3
+    # find course ID in courses list
+    course_data = []
+    course_data.append(school_id)
+    course_data.extend(eval_row[1:3])
+    course_id = courses.index(course_data) + 1
+    eval_data.append(course_id)
+
+    # get major requirement description from column 6
+    # find major requirement ID in major_reqs list
+    major_req_desc = eval_row[5]
+    major_req_id = major_reqs.index(major_req_desc) + 1
+    eval_data.append(major_req_id)
+
+    # Get sem & year taken and approved status from columns 4 and 5
+    eval_data.extend(eval_row[3:5])
+
+    # get approver name from column 8 and find approver ID in approvers list
+    approver_name = eval_row[7]
+    approver_id = approvers.index(approver_name) + 1
+    eval_data.append(approver_id)
+
+    # get expiration date from column 9
+    eval_data.append(eval_row[8])
+
+    # get comment from column 12
+    eval_data.append(eval_row[11])
+
+    return eval_data
+
+
+def course_with_fk(course_row, schools):
+    """
+    Uses data from course_row and the ID of of the school name  to create and
+    return a list that has the foreign key value for school_id
+
+    course_row: list of values from columns 1 to 3 in a row in a worksheet
+    schools: list of strings, representing school names
+    Returns:
+        list of values representing a course entry in the Course entity with
+        foreign key school ID
+    """
+    course_data = []
+    school_name = course_row[0]
+    school_id = schools.index(school_name) + 1
+    course_data.append(school_id)
+    course_data.extend(course_row[1:3])
+    return course_data
+
+
+def get_course_by_major(major_ws, start, end, schools):
+    """
+    Computes and returns a list of 3-element sublists with course data from
+    major_ws worksheet. The 3-element sublist has data from columns
+        1 (school name), 2 (subject num), and 3 (course title) in a worksheet.
+    Replaces school name with school ID in the schools list.
+
+    major_ws: worksheet
+    start, end: column indices
+    schools: lists of unique names
+    Returns: list of 3-elemnt sublists
+    """
+    courses = []
+    for row in major_ws.iter_rows(
+            min_row=2, max_row=major_ws.max_row, min_col=start, max_col=end,
+            values_only=True):
+        course_data = course_with_fk(row, schools)
+        courses.append(course_data)
+    return courses
+
+
+def get_eval_by_major(
+        major_ws, start, end, schools, courses, approvers, major_reqs):
+    """
+    Computes and returns a list of 7-elemnent sublists with transfer evaluation
+    data from major_ws worksheet. The 7-element sublist has data from
+        4 columns:
+            4 (sem & yea taken), 5 (approved status), 8 (approver name),
+            9 (expiration date), 12 (comment)
+        column 8 (approver name) is replaced with approver ID in approvers
+        course ID from courses and major requirement ID from major_reqs
+    """
+    evals = []
+    for row in major_ws.iter_rows(
+            min_row=2, max_row=major_ws.max_row, min_col=start, max_col=end,
+            values_only=True):
+        eval_data = eval_with_fk(row, schools, courses, approvers, major_reqs)
+        evals.append(eval_data)
+    return evals
+
+def import_school(request, wb_object, majors):
+    idx_major = 0;
+    for major in majors:
+        data = test_get_data_by_major(wb_object, major)
+        schools = data[0]
+        courses = data[1]
+        count = 0
+        for school in schools:
+            school_data = School(count, school, "N/A", idx_major)
+            school_data.save()
+            count = count + 1
+        idx_major= idx_major + 1
