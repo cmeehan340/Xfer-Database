@@ -12,6 +12,7 @@ class School(models.Model):
     This is a school model built from the data model.
     '''
     school_name = models.CharField(max_length=100)
+    state_name = models.CharField(max_length=100)
     major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
 
     def __str__(self):
