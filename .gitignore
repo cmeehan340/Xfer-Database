@@ -9,6 +9,7 @@
 __pycache__
 db.sqlite3
 media
+data/import.py
 
 
 # Backup files #

@@ -15,8 +15,8 @@ class Course(models.Model):
     This course model, is build on the data models given.
     '''
     school_id = models.ForeignKey(School, on_delete=models.CASCADE)
-    subject_no = models.CharField(max_length=15, unique=True)
-    title = models.CharField(max_length=100, unique=True)
+    subject_no = models.CharField(max_length=15, unique=True, blank=True, null=True)
+    title = models.CharField(max_length=100, unique=True, blank=True, null=True)
 
 
     def __str__(self):

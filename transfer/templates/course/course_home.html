@@ -9,9 +9,8 @@
     <tr>
     <th>Subject Number</th>
     <th>Title</th>
-    <th>Approved</th>
-    <th>Comments</th>
-    <th>Taken</th>
+    <th>UNHM Course Equivilent</th>
+    <th>Approved Major</th>
     <th>Expiration</th>
     </tr>
 </thead>
@@ -20,9 +19,8 @@
     <tr>
     <td>{{ course.subject_no }}</td>
     <td>{{ course.title }}</td>
-    <td>{{ course.approved_status }}</td>
-    <td>{{ course.comment }}</td>
-    <td>{{ course.sem_year_taken }}</td>
+    <td>{{ course.quivilent }}</td>
+    <td>{{ course.major }}</td>
     <td>{{ course.expiration_date }}</td>
     </tr>
     {% endfor %}
