@@ -13,7 +13,6 @@ class School(models.Model):
     '''
     school_name = models.CharField(max_length=100)
     state_name = models.CharField(max_length=100)
-    major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.school_name

@@ -46,7 +46,7 @@ def import_major(wb_object):
 def import_school(schools, idx_major):
     count = 0
     for school in schools:
-        school_data = School(count, school, "N/A", idx_major)
+        school_data = School(count, school, "N/A")
         school_data.save()
         count = count + 1
     return schools
