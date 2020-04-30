@@ -27,6 +27,12 @@ from .views.requirement_view import  (RequirementListView,
                             RequirementDeleteView,
                             RequirementUpdateView)
 
+from .views.evaluation_view import  (EvalListView,
+                            EvalCreateView,
+                            EvalDetailView,
+                            EvalDeleteView,
+                            EvalUpdateView)
+
 from .views.import_view import import_file
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
@@ -62,4 +68,11 @@ urlpatterns = [
     path('requirements-delete/<int:pk>', RequirementDeleteView.as_view(), name='requirement_delete'),
 
     path('import', import_file, name = 'import_view'),
+
+    path('evaluations', EvalListView.as_view(), name='eval_home'),
+    path('evaluations/<int:pk>', EvalDetailView.as_view(), name='eval_detail'),
+    path('evaluations-new', EvalCreateView.as_view(), name='eval_new'),
+    path('evaluations-edit/<int:pk>', EvalUpdateView.as_view(), name='eval_edit'),
+    path('evaluations-delete/<int:pk>', EvalDeleteView.as_view(), name='eval_delete'),
+
 ]
