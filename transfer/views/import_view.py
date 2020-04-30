@@ -15,6 +15,8 @@ from transfer.models.model_major import Major
 from transfer.models.model_school import School
 from transfer.models.model_course import Course
 from transfer.models.model_approver import Approver
+from transfer.models.model_requirement import MajorRequirement
+from transfer.models.model_evaluation import TransferEvaluation
 from django.http import HttpResponse
 
 
@@ -32,19 +34,25 @@ def import_data(file_name):
         schools = data[0]
         courses = data[1]
         approvers = data[2]
+        reqs = data[3]
+        evals = data[4]
         schools_with_idx = import_school(schools, idx)
-        # import_course(courses)
+        import_course(courses)
         import_approvers(approvers)
+        import_requirement(reqs)
+        import_evals(evals)
 
 def import_major(wb_object):
     major_names = wb_object.sheetnames
-    for idx,major in enumerate(major_names):
-        major_data=Major(idx, major)
+    count = 1
+    for major in enumerate(major_names):
+        major_data=Major(count, major[1])
         major_data.save()
+        count = count + 1
     return major_names
 
 def import_school(schools, idx_major):
-    count = 0
+    count = 1
     for school in schools:
         school_data = School(count, school, "N/A")
         school_data.save()
@@ -52,17 +60,32 @@ def import_school(schools, idx_major):
     return schools
 
 def import_course(courses):
-    count = 0
+    count = 1
     for course in courses:
         course_data = Course(count, course[0], course[1], course[2])
         course_data.save()
+        count = count + 1
 
 def import_approvers(approvers):
-    for idx, approver in enumerate(approvers):
-        approver_data = Approver(idx, approver)
+    count = 1
+    for approver in approvers:
+        approver_data = Approver(count, approver)
         approver_data.save()
+        count = count + 1
 
+def import_requirement(reqs):
+    count = 1
+    for req in reqs:
+        req_data = MajorRequirement(count, req[1], req[0])
+        req_data.save()
+        count = count + 1
 
+def import_evals(evals):
+    count = 1
+    for eval in evals:
+        eval_data = TransferEvaluation(count, eval[0], eval[1], eval[2], "2020-03-03", eval[3], eval[5], eval[4])
+        eval_data.save()
+        count = count + 1
 
 
 

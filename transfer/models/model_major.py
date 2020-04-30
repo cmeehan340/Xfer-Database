@@ -11,7 +11,6 @@ class Major(models.Model):
     '''
     This model is build on the given model for Majors.
     '''
-    major_id = models.AutoField(primary_key=True)
     major_name = models.CharField(max_length=30, blank=False, unique=True)
 
     def __str__(self):

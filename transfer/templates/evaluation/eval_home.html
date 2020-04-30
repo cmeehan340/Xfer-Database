@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h3>Evaluations:</h3>
+<div class="dropdown">
+  <div id="myDropdown" class="dropdown-content">
+    {% for eval in object_list %}
+    <a href="{% url 'eval_detail' eval.pk %}">{{ eval.description }}</a>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
