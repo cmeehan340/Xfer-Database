@@ -5,7 +5,6 @@ Chris Meehan
 '''
 from django.db import models
 from django.urls import reverse
-from .model_major import Major
 
 class School(models.Model):
     '''

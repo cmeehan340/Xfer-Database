@@ -10,48 +10,60 @@ April 23, 2020
 
 from django.shortcuts import render
 from openpyxl import load_workbook
-from openpyxl import Workbook
 from transfer.models.model_major import Major
 from transfer.models.model_school import School
 from transfer.models.model_course import Course
 from transfer.models.model_approver import Approver
 from transfer.models.model_requirement import MajorRequirement
 from transfer.models.model_evaluation import TransferEvaluation
-from django.http import HttpResponse
+
 
 
 def import_file(request):
+    '''
+    Renders the view and runs import_Data
+    '''
     if request.method == 'POST':
         file = request.FILES['document']
-        wb = import_data(file)
+        import_data(file)
     return render(request, 'import.html')
 
 def import_data(file_name):
+    '''
+    Gets the workbook, and majors, gets all of the data and runs imports
+    '''
     wb_object = load_workbook(filename=file_name, data_only=True)
     majors = import_major(wb_object)
-    for idx, major in enumerate(majors):
+    for major in majors:
         data = test_get_data_by_major(wb_object, major)
         schools = data[0]
         courses = data[1]
         approvers = data[2]
         reqs = data[3]
         evals = data[4]
-        schools_with_idx = import_school(schools, idx)
+        import_school(schools)
         import_course(courses)
         import_approvers(approvers)
         import_requirement(reqs)
-        import_evals(evals)
+        import_evaluations(evals)
+
 
 def import_major(wb_object):
+    '''
+    Goes through the majors and adds them into the database
+    '''
     major_names = wb_object.sheetnames
     count = 1
     for major in enumerate(major_names):
-        major_data=Major(count, major[1])
+        major_data = Major(count, major[1])
         major_data.save()
         count = count + 1
     return major_names
 
-def import_school(schools, idx_major):
+def import_school(schools):
+    '''
+    Goes through the Schools and adds them into the database
+    '''
     count = 1
     for school in schools:
         school_data = School(count, school, "N/A")
@@ -60,30 +72,48 @@ def import_school(schools, idx_major):
     return schools
 
 def import_course(courses):
+    '''
+    Goes through the courses and adds them into the database
+    '''
     count = 1
     for course in courses:
         course_data = Course(count, course[0], course[1], course[2])
         course_data.save()
         count = count + 1
 
+
 def import_approvers(approvers):
+    '''
+    Goes through the approvers and adds them into the database
+    '''
     count = 1
     for approver in approvers:
         approver_data = Approver(count, approver)
         approver_data.save()
         count = count + 1
 
+
 def import_requirement(reqs):
+    '''
+    Goes through the requirements and adds them into the database
+    '''
     count = 1
     for req in reqs:
         req_data = MajorRequirement(count, req[1], req[0])
         req_data.save()
         count = count + 1
 
-def import_evals(evals):
+
+def import_evaluations(evals):
+    '''
+    Goes through the evaluations and adds them into the database
+    '''
     count = 1
-    for eval in evals:
-        eval_data = TransferEvaluation(count, eval[0], eval[1], eval[2], "2020-03-03", eval[3], eval[5], eval[4])
+    for evaluation in evals:
+        eval_data = TransferEvaluation(count, evaluation[0], evaluation[1],
+                                       evaluation[2], "2020-03-03",
+                                       evaluation[3], evaluation[5],
+                                       evaluation[4])
         eval_data.save()
         count = count + 1
 
@@ -316,7 +346,7 @@ def update(all_lst, one_lst):
     """
     for val in one_lst:
         if val not in all_lst:
-                all_lst.append(val)
+            all_lst.append(val)
     return all_lst
 
 

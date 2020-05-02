@@ -3,13 +3,14 @@ major_view.py
 Chris Meehan
 4/13/2020
 '''
-from ..models.model_major import Major
-from django.views.generic import(ListView,
-                                CreateView,
-                                DeleteView,
-                                UpdateView,
-                                DetailView)
 from django.urls import reverse_lazy
+from django.views.generic import(ListView,
+                                 CreateView,
+                                 DeleteView,
+                                 UpdateView,
+                                 DetailView)
+from ..models.model_major import Major
+
 
 
 class MajorListView(ListView):

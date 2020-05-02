@@ -6,7 +6,6 @@ Updated:
 4/26/2020
 '''
 from django.db import models
-from .model_approver import Approver
 from .model_school import School
 
 
