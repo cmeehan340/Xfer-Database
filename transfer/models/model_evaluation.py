@@ -11,8 +11,12 @@ from .model_course import Course
 
 
 class TransferEvaluation(models.Model):
+    '''
+    This is the Transfer Evaluation model, built based on the provided data
+    model
+    '''
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
-    major_req_id =  models.ForeignKey(MajorRequirement, on_delete=models.CASCADE)
+    major_req_id = models.ForeignKey(MajorRequirement, on_delete=models.CASCADE)
     sem_year_taken = models.CharField(max_length=8, blank=True, null=True)
     expiration_date = models.DateField()
     approved_status = models.CharField(max_length=1, blank=True, null=True)
@@ -20,4 +24,4 @@ class TransferEvaluation(models.Model):
     approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.course_id
+        return self.comment

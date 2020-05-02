@@ -9,7 +9,7 @@ from ..models.model_school import School
 
 class HomeListView(ListView):
     '''
-    This generates the view for the home page. 
+    This generates the view for the home page.
     '''
     model = School
     template_name = 'home.html'

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div>
-<h2>{{ eval.comment }}</h2>
+<h2>{{ eval.id }} {{ eval.sem_year_taken}} {{ eval.approved_status}}</h2>
 </div>
-<a href="{% url 'eval_edit' eval.pk %}">+ Edit Evaluation</a>
-<p><a href="{% url 'eval_delete' eval.pk %}">+ Delete Evaluation</a></p>
+<a href="{% url 'eval_edit' eval.pk %}">+ Edit Major</a>
+<p><a href="{% url 'eval_delete' eval.pk %}">+ Delete Major</a></p>
 {% endblock content %}

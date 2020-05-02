@@ -3,13 +3,14 @@ evaluation_view.py
 Chris Meehan
 4/30/2020
 '''
-from django.views.generic import (ListView,
-                                CreateView,
-                                DeleteView,
-                                UpdateView,
-                                DetailView)
-from ..models.model_evaluation import TransferEvaluation
 from django.urls import reverse_lazy
+from django.views.generic import (ListView,
+                                  CreateView,
+                                  DeleteView,
+                                  UpdateView,
+                                  DetailView)
+from ..models.model_evaluation import TransferEvaluation
+
 
 
 class EvalListView(ListView):

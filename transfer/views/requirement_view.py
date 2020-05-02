@@ -3,13 +3,14 @@ major_req_view.py
 Chris Meehan
 4/21/2020
 '''
-from django.views.generic import(ListView,
-                                CreateView,
-                                DeleteView,
-                                UpdateView,
-                                DetailView)
-from ..models.model_requirement import MajorRequirement
 from django.urls import reverse_lazy
+from django.views.generic import(ListView,
+                                 CreateView,
+                                 DeleteView,
+                                 UpdateView,
+                                 DetailView)
+from ..models.model_requirement import MajorRequirement
+
 
 
 

@@ -3,13 +3,14 @@ course_view.py
 Chris Meehan
 4/13/2020
 '''
-from django.views.generic import (ListView,
-                                CreateView,
-                                DeleteView,
-                                UpdateView,
-                                DetailView)
-from ..models.model_course import Course
 from django.urls import reverse_lazy
+from django.views.generic import (ListView,
+                                  CreateView,
+                                  DeleteView,
+                                  UpdateView,
+                                  DetailView)
+from ..models.model_course import Course
+
 
 
 class CourseListView(ListView):

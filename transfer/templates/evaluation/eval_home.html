@@ -5,7 +5,7 @@
 <div class="dropdown">
   <div id="myDropdown" class="dropdown-content">
     {% for eval in object_list %}
-    <a href="{% url 'eval_detail' eval.pk %}">{{ eval.description }}</a>
+    <a href="{% url 'eval_detail' eval.pk %}">{{ eval.id }}, {{ eval.sem_year_taken}}, {{ eval.approved_status}}</a>
     {% endfor %}
     </div>
     </div>
