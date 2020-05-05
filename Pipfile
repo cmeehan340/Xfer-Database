@@ -8,6 +8,10 @@ django = "==3.0.4"
 gunicorn = "==20.0.4"
 whitenoise = "==5.0.1"
 openpyxl = "*"
+python-dotenv = "*"
+dotenv = "*"
+dj-dtabase-url = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
