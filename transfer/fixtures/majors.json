@@ -1,9 +1,0 @@
-[
-  {
-    "model": "transfer.major",
-    "pk" : 1,
-    "fields": {
-      "major_name": "Test"
-    }
-  }
-]

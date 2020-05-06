@@ -10,8 +10,8 @@ class School(models.Model):
     '''
     This is a school model built from the data model.
     '''
-    school_name = models.CharField(max_length=100)
-    state_name = models.CharField(max_length=100)
+    school_name = models.CharField(max_length=200)
+    state_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.school_name

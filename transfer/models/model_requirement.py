@@ -12,7 +12,7 @@ class MajorRequirement(models.Model):
     '''
     This model is build for the Major Requirment based on the given data.
     '''
-    description = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
     major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -17,10 +17,10 @@ class TransferEvaluation(models.Model):
     '''
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     major_req_id = models.ForeignKey(MajorRequirement, on_delete=models.CASCADE)
-    sem_year_taken = models.CharField(max_length=8, blank=True, null=True)
+    sem_year_taken = models.CharField(max_length=50, blank=True, null=True)
     expiration_date = models.DateField()
-    approved_status = models.CharField(max_length=1, blank=True, null=True)
-    comment = models.CharField(max_length=150, blank=True, null=True)
+    approved_status = models.CharField(max_length=10, blank=True, null=True)
+    comment = models.CharField(max_length=200, blank=True, null=True)
     approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)
 
     def __str__(self):
