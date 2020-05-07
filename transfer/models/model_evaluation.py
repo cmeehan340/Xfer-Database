@@ -23,5 +23,9 @@ class TransferEvaluation(models.Model):
     comment = models.CharField(max_length=200, blank=True, null=True)
     approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.comment
+
+    def get_absolute_url(self):
+        '''
+        Returns the redirect for major detail page
+        '''
+        return reverse('eval_detail', args=[str(self.id)])

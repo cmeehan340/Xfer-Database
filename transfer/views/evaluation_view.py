@@ -27,7 +27,7 @@ class EvalCreateView(CreateView):
     model = TransferEvaluation
     template_name = 'evaluation/eval_new.html'
     fields = '__all__'
-    success_url = reverse_lazy('evaluation_home')
+    success_url = reverse_lazy('eval_home')
 
 class EvalDetailView(DetailView):
     '''
@@ -43,7 +43,7 @@ class EvalUpdateView(UpdateView):
     '''
     model = TransferEvaluation
     template_name = 'evaluation/eval_edit.html'
-    success_url = reverse_lazy('evaluation_home')
+    success_url = reverse_lazy('eval_home')
     fields = '__all__'
 
 class EvalDeleteView(DeleteView):
@@ -52,4 +52,4 @@ class EvalDeleteView(DeleteView):
     '''
     model = TransferEvaluation
     template_name = 'evaluation/eval_delete.html'
-    success_url = reverse_lazy('evaluation_home')
+    success_url = reverse_lazy('eval_home')

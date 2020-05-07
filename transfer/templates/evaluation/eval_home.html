@@ -2,11 +2,32 @@
 {% load static %}
 {% block content %}
 <h3>Evaluations:</h3>
-<div class="dropdown">
-  <div id="myDropdown" class="dropdown-content">
-    {% for eval in object_list %}
-    <a href="{% url 'eval_detail' eval.pk %}">{{ eval.id }}, {{ eval.sem_year_taken}}, {{ eval.approved_status}}</a>
-    {% endfor %}
-    </div>
-    </div>
+  <table style="width:90%">
+  <thead>
+      <tr>
+      <th>Evaluation Number</th>
+      <th>Course</th>
+      <th>Major Requirement</th>
+      <th>Expiration Date</th>
+      <th>Semester Taken</th>
+      <th>Approved Status</th>
+      <th>Approver</th>
+      <th>Comment</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for evaluation in object_list %}
+      <tr>
+      <td><a href="{% url 'eval_detail' evaluation.pk %}">{{ evaluation.id }} </a></td>
+      <td>{{ evaluation.course_id }}</td>
+      <td>{{ evaluation.major_req_id }}</td>
+      <td>{{ evaluation.expiration_date}}</td>
+      <td>{{ evaluation.sem_year_taken}}</td>
+      <td>{{ evaluation.approved_status}}</td>
+      <td>{{ evaluation.approver_id }}</td>
+      <td>{{ evaluation.comment}}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+  </table>
 {% endblock %}

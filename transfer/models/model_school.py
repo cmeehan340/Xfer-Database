@@ -20,4 +20,4 @@ class School(models.Model):
         '''
         Returns the url for school_name
         '''
-        return reverse('school_name', args=[str(self.id)])
+        return reverse('school_detail', args=[str(self.id)])

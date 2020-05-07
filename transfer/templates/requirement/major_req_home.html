@@ -2,12 +2,22 @@
 {% load static %}
 {% block content %}
 <h2>Major Requirements</h2>
-<div class="dropdown">
-  <div id="myDropdown" class="dropdown-content">
+<table style="width:90%">
+<thead>
+    <tr>
+    <th>Requirment Number</th>
+    <th>Major</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
     {% for requirement in object_list %}
-    <a href="{% url 'requirement_detail' requirement.pk %}">{{ requirement.description }}</a>
+    <tr>
+    <td><a href="{% url 'requirement_detail' requirement.pk %}">{{ requirement.id }}</a></td>
+    <td>{{ requirement.major_id }}</td>
+    <td>{{ requirement.description }}</td>
+    </tr>
     {% endfor %}
-    </div>
-    </div>
+</tbody>
 
 {% endblock %}
