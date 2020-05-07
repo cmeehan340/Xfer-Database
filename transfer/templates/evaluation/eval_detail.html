@@ -2,8 +2,35 @@
 {% load static %}
 {% block content %}
 <div>
-<h2>{{ eval.id }} {{ eval.sem_year_taken}} {{ eval.approved_status}}</h2>
+  <table style="width:90%">
+  <thead>
+      <tr>
+      <th>Evaluation Number</th>
+      <th>Course</th>
+      <th>Major Requirement</th>
+      <th>Expiration Date</th>
+      <th>Semester Taken</th>
+      <th>Approved Status</th>
+      <th>Approver</th>
+      <th>Comment</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+      <td>{{ object.id }}</td>
+      <td>{{ object.course_id }}</td>
+      <td>{{ object.major_req_id }}</td>
+      <td>{{ object.expiration_date}}</td>
+      <td>{{ object.sem_year_taken}}</td>
+      <td>{{ object.approved_status}}</td>
+      <td>{{ object.approver_id }}</td>
+      <td>{{ object.comment}}</td>
+      </tr>
+  </tbody>
+  </table>
 </div>
-<a href="{% url 'eval_edit' eval.pk %}">+ Edit Major</a>
-<p><a href="{% url 'eval_delete' eval.pk %}">+ Delete Major</a></p>
+<p>
+<a href="{% url 'eval_edit' object.pk %}">Edit Evaluation</a>
+</p>
+<a href="{% url 'eval_delete' object.pk %}">Delete Evaluation</a>
 {% endblock content %}

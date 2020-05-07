@@ -4,6 +4,7 @@ Chris Meehan
 4/12/2020
 '''
 from django.db import models
+from django.urls import reverse
 # Create your models here.
 
 
@@ -16,3 +17,6 @@ class Approver(models.Model):
 
     def __str__(self):
         return self.approver_name
+
+    def get_absolute_url(self):
+        return reverse('approver_detail', args=[str(self.id)])

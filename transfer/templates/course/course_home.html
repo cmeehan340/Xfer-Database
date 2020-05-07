@@ -7,21 +7,17 @@
 <table style="width:90%">
 <thead>
     <tr>
+    <th>Course Number</th>
     <th>Subject Number</th>
     <th>Title</th>
-    <th>UNHM Course Equivilent</th>
-    <th>Approved Major</th>
-    <th>Expiration</th>
     </tr>
 </thead>
 <tbody>
     {% for course in object_list %}
     <tr>
+    <td>{{ course.id }}</td>
     <td>{{ course.subject_no }}</td>
     <td>{{ course.title }}</td>
-    <td>{{ course.quivilent }}</td>
-    <td>{{ course.major }}</td>
-    <td>{{ course.expiration_date }}</td>
     </tr>
     {% endfor %}
 </tbody>

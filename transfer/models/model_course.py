@@ -6,6 +6,7 @@ Updated:
 4/26/2020
 '''
 from django.db import models
+from django.urls import reverse
 from .model_school import School
 
 
@@ -20,3 +21,6 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('course_detail', args=[str(self.id)])

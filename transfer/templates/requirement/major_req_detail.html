@@ -2,7 +2,12 @@
 {% block content %}
 {% load static %}
 <div class>
-<h2>{{ requirement.description }}</h2>
+<h2>Major Requirement {{ object.id }}</h2>
+<p>Description: {{ object.description }}</p>
+<p>For Major: {{ object.major_id }}</p>
 </div>
-
+<p>
+<a href="{% url 'requirement_edit' object.pk %}">Edit Requirement</a>
+</p>
+<a href="{% url 'requirement_delete' object.pk %}">Delete Requirement</a>
 {% endblock content %}
